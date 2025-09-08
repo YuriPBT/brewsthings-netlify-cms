@@ -9,7 +9,6 @@ export default function Admin({ children }: { children?: React.ReactNode }) {
       new TinaCMS({
         enabled: true, // abilita l'editing
         sidebar: true, // mostra la sidebar
-        toolbar: true, // mostra la toolbar
       }),
     []
   );
@@ -20,3 +19,4 @@ export default function Admin({ children }: { children?: React.ReactNode }) {
     </TinaProvider>
   );
 }
+
