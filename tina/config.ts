@@ -21,7 +21,10 @@ export default defineConfig({
         label: "Post",
         path: "content/post",
         format: "mdx",
-        ui: { router: (doc) => `/post/${doc?.slug}` },
+        ui: {  router: ({ document }) => {
+    return `/post/${document._sys.relativePath.replace(/\.mdx?$/, "")}`;
+  }
+},
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
@@ -111,4 +114,5 @@ export default defineConfig({
       }
     ]
   }
+
 });
