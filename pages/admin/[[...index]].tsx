@@ -1,22 +1,10 @@
-import { TinaProvider, TinaCMS } from "tinacms";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
-export default function Admin({ children }: { children?: React.ReactNode }) {
-  // Inizializza il CMS solo una volta
-  const cms = useMemo(
-    () =>
-      new TinaCMS({
-        enabled: true, // abilita l'editing
-        sidebar: true, // mostra la sidebar
-      }),
-    []
-  );
+// Importa Admin solo lato client
+const AdminComponent = dynamic(() => import("../../components/Admin"), {
+  ssr: false,
+});
 
-  return (
-    <TinaProvider cms={cms}>
-      {children ? children : <p>Interfaccia di amministrazione TinaCMS pronta.</p>}
-    </TinaProvider>
-  );
+export default function AdminPage() {
+  return <AdminComponent />;
 }
-
