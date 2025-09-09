@@ -18,7 +18,8 @@
     "yup": "0.32.11",
     "disqus-react": "^1.1.4",
     "next-seo": "^6.8.0",
-    "reading-time": "^1.5.0"
+    "reading-time": "^1.5.0",
+    "next-mdx-remote": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
