@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brewthings.yuripettignano.work/sitemap.xml
