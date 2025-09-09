@@ -5,8 +5,11 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "**" },
       { protocol: "http", hostname: "**" }
-    ]
+    ],
+    unoptimized: true // necessario per export statico 
   },
-  experimental: { scrollRestoration: true }
+  experimental: { scrollRestoration: true },
+  output: "export"
 };
+
 module.exports = nextConfig;
