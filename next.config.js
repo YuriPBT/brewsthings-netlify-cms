@@ -6,10 +6,18 @@ const nextConfig = {
       { protocol: "https", hostname: "**" },
       { protocol: "http", hostname: "**" }
     ],
-    unoptimized: true // necessario per export statico 
+    unoptimized: true // necessario per export statico
   },
   experimental: { scrollRestoration: true },
-  output: "export"
+  output: "export",
+
+  async rewrites() {
+    return [
+      { source: "/robots.txt", destination: "/api/robots" },
+      { source: "/sitemap.xml", destination: "/api/sitemap" }
+    ];
+  }
 };
 
 module.exports = nextConfig;
+
