@@ -2,7 +2,6 @@ import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo.config";
 import styles from "./Layout.module.css";
-import "../styles/globals.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Script from "next/script";
@@ -51,4 +50,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </footer>
     </>
   );
+
 }
