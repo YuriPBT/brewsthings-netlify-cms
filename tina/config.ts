@@ -1,17 +1,33 @@
+// tina/config.ts
 import { defineConfig } from "tinacms";
 
+const branch =
+  process.env.NEXT_PUBLIC_TINA_BRANCH ||
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
+  process.env.HEAD ||
+  "main";
+
+const safeRouter = (basePath: string) => {
+  return ({ document }: { document: any; collection: any }) => {
+    const slug =
+      document?.data?.slug ||
+      document._sys.relativePath.replace(/\.mdx?$/, "");
+    return `/${basePath}/${slug}`;
+  };
+};
+
 export default defineConfig({
-  branch: process.env.TINA_BRANCH || process.env.NEXT_PUBLIC_TINA_BRANCH || "main",
-  clientId: process.env.TINA_CLIENT_ID!,
-  token: process.env.TINA_TOKEN!,
+  branch,
+  clientId: process.env.TINA_CLIENT_ID!, 
+  token: process.env.TINA_TOKEN!, 
   build: {
-    outputFolder: "admin",
-    publicFolder: "public"
+    publicFolder: "public",
+    outputFolder: "admin"
   },
   media: {
     tina: {
-      mediaRoot: "images",
-      publicFolder: "public"
+      publicFolder: "public",
+      mediaRoot: "uploads"
     }
   },
   schema: {
@@ -21,72 +37,22 @@ export default defineConfig({
         label: "Post",
         path: "content/post",
         format: "mdx",
-        ui: {  router: ({ document }) => {
-    return `/post/${document._sys.relativePath.replace(/\.mdx?$/, "")}`;
-  }
-},
+        ui: { router: safeRouter("post") },
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
-          { type: "string", name: "date", label: "Data (DD/MM/YYYY)", required: true },
-          { type: "string", name: "author", label: "Autore" },
-          { type: "image", name: "cover", label: "Cover" },
-          { type: "string", name: "excerpt", label: "Estratto", ui: { component: "textarea" } },
-          { type: "string", name: "tags", label: "Tag", list: true },
-          { type: "boolean", name: "comments", label: "Commenti", required: false },
           { type: "rich-text", name: "body", label: "Contenuto", isBody: true }
         ]
       },
       {
         name: "schede-tecniche",
-        label: "Schede tecniche",
+        label: "Schede Tecniche",
         path: "content/schede-tecniche",
         format: "mdx",
-        ui: {
-  router: ({ document }) => {
-    const slug = (document as any)?.data?.slug
-      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
-    return `/schede-tecniche/${slug}`;
-  }
-},
+        ui: { router: safeRouter("schede-tecniche") },
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
-          { type: "string", name: "date", label: "Data (DD/MM/YYYY)", required: true },
-          { type: "image", name: "cover", label: "Cover" },
-          { type: "string", name: "excerpt", label: "Estratto", ui: { component: "textarea" } },
-          { type: "string", name: "style", label: "Stile" },
-          { type: "string", name: "og", label: "OG" },
-          { type: "string", name: "fg", label: "FG" },
-          { type: "string", name: "abv", label: "ABV" },
-          { type: "string", name: "ibu", label: "IBU" },
-          { type: "string", name: "tags", label: "Tag", list: true },
-          { type: "boolean", name: "comments", label: "Commenti" },
-          { type: "rich-text", name: "body", label: "Contenuto", isBody: true }
-        ]
-      },
-      {
-        name: "recensioni",
-        label: "Recensioni",
-        path: "content/recensioni",
-        format: "mdx",
-        ui: {
-  router: ({ document }) => {
-    const slug = (document as any)?.data?.slug
-      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
-    return `/recensioni/${slug}`;
-  }
-},
-        fields: [
-          { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
-          { type: "string", name: "slug", label: "Slug", required: true },
-          { type: "string", name: "date", label: "Data (DD/MM/YYYY)", required: true },
-          { type: "string", name: "brand", label: "Brand" },
-          { type: "number", name: "rating", label: "Valutazione (1-5)" },
-          { type: "image", name: "cover", label: "Cover" },
-          { type: "string", name: "excerpt", label: "Estratto", ui: { component: "textarea" } },
-          { type: "string", name: "tags", label: "Tag", list: true },
-          { type: "boolean", name: "comments", label: "Commenti" },
           { type: "rich-text", name: "body", label: "Contenuto", isBody: true }
         ]
       },
@@ -95,23 +61,10 @@ export default defineConfig({
         label: "Tutorial",
         path: "content/tutorial",
         format: "mdx",
-      ui: {
-  router: ({ document }) => {
-    const slug = (document as any)?.data?.slug
-      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
-    return `/tutorial/${slug}`;
-  }
-},
+        ui: { router: safeRouter("tutorial") },
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
-          { type: "string", name: "date", label: "Data (DD/MM/YYYY)", required: true },
-          { type: "string", name: "level", label: "Livello", options: ["base","intermedio","avanzato"] },
-          { type: "string", name: "duration", label: "Durata" },
-          { type: "image", name: "cover", label: "Cover" },
-          { type: "string", name: "excerpt", label: "Estratto", ui: { component: "textarea" } },
-          { type: "string", name: "tags", label: "Tag", list: true },
-          { type: "boolean", name: "comments", label: "Commenti" },
           { type: "rich-text", name: "body", label: "Contenuto", isBody: true }
         ]
       },
@@ -120,18 +73,26 @@ export default defineConfig({
         label: "Autori",
         path: "content/autori",
         format: "mdx",
-        ui: { router: (doc) => `/autore/${doc?.slug}` },
+        ui: { router: safeRouter("autore") },
         fields: [
-          { type: "string", name: "title", label: "Nome", isTitle: true, required: true },
+          { type: "string", name: "name", label: "Nome", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
-          { type: "image", name: "avatar", label: "Avatar" },
-          { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } },
-          { type: "string", name: "links", label: "Link", list: true },
-          { type: "rich-text", name: "body", label: "Corpo (opzionale)", isBody: true }
+          { type: "string", name: "bio", label: "Biografia" }
+        ]
+      },
+      {
+        name: "recensioni",
+        label: "Recensioni",
+        path: "content/recensioni",
+        format: "mdx",
+        ui: { router: safeRouter("recensioni") },
+        fields: [
+          { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
+          { type: "string", name: "slug", label: "Slug", required: true },
+          { type: "rich-text", name: "body", label: "Contenuto", isBody: true },
+          { type: "number", name: "rating", label: "Valutazione", required: false }
         ]
       }
     ]
   }
-
 });
-
