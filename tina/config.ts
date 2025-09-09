@@ -42,7 +42,13 @@ export default defineConfig({
         label: "Schede tecniche",
         path: "content/schede-tecniche",
         format: "mdx",
-        ui: { router: (doc) => `/schede-tecniche/${doc?.slug}` },
+        ui: {
+  router: ({ document }) => {
+    const slug = (document as any)?.data?.slug
+      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
+    return `/schede-tecniche/${slug}`;
+  }
+},
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
@@ -64,7 +70,13 @@ export default defineConfig({
         label: "Recensioni",
         path: "content/recensioni",
         format: "mdx",
-        ui: { router: (doc) => `/recensioni/${doc?.slug}` },
+        ui: {
+  router: ({ document }) => {
+    const slug = (document as any)?.data?.slug
+      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
+    return `/recensioni/${slug}`;
+  }
+},
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
@@ -83,7 +95,13 @@ export default defineConfig({
         label: "Tutorial",
         path: "content/tutorial",
         format: "mdx",
-        ui: { router: (doc) => `/tutorial/${doc?.slug}` },
+      ui: {
+  router: ({ document }) => {
+    const slug = (document as any)?.data?.slug
+      ?? document._sys.relativePath.replace(/\.mdx?$/, "");
+    return `/tutorial/${slug}`;
+  }
+},
         fields: [
           { type: "string", name: "title", label: "Titolo", isTitle: true, required: true },
           { type: "string", name: "slug", label: "Slug", required: true },
@@ -116,3 +134,4 @@ export default defineConfig({
   }
 
 });
+
