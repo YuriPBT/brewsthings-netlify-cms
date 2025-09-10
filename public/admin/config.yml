@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main 
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -8,44 +8,58 @@ public_folder: "/uploads"
 collections:
   - name: "post"
     label: "Post"
-    folder: "src/content/post"
+    folder: "content/post"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Titolo", name: "title", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Autore", name: "author", widget: "relation", collection: "autori", search_fields: ["name"], value_field: "name", display_fields: ["name"] }
       - { label: "Tag", name: "tags", widget: "list", default: [] }
       - { label: "Contenuto", name: "body", widget: "markdown" }
 
   - name: "recensioni"
     label: "Recensioni"
-    folder: "src/content/recensioni"
+    folder: "content/recensioni"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Titolo", name: "title", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Autore", name: "author", widget: "relation", collection: "autori", search_fields: ["name"], value_field: "name", display_fields: ["name"] }
       - { label: "Tag", name: "tags", widget: "list", default: [] }
       - { label: "Contenuto", name: "body", widget: "markdown" }
 
   - name: "schede-tecniche"
     label: "Schede Tecniche"
-    folder: "src/content/schede-tecniche"
+    folder: "content/schede-tecniche"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Titolo", name: "title", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Autore", name: "author", widget: "relation", collection: "autori", search_fields: ["name"], value_field: "name", display_fields: ["name"] }
       - { label: "Tag", name: "tags", widget: "list", default: [] }
       - { label: "Contenuto", name: "body", widget: "markdown" }
 
   - name: "tutorial"
     label: "Tutorial"
-    folder: "src/content/tutorial"
+    folder: "content/tutorial"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Titolo", name: "title", widget: "string" }
       - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Autore", name: "author", widget: "relation", collection: "autori", search_fields: ["name"], value_field: "name", display_fields: ["name"] }
       - { label: "Tag", name: "tags", widget: "list", default: [] }
       - { label: "Contenuto", name: "body", widget: "markdown" }
+
+  - name: "autori"
+    label: "Autori"
+    folder: "content/autori"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nome", name: "name", widget: "string" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - { label: "Foto", name: "avatar", widget: "image" }
