@@ -3,13 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <title>Content Manager</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Netlify Identity -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Netlify CMS -->
-    <script src="https://unpkg.com/netlify-cms-app@^2.0.0/dist/netlify-cms.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/netlify-cms-app@^2.15.0/dist/netlify-cms.js"></script>
   </head>
   <body>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.reload();
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
