@@ -5,20 +5,20 @@
     <title>Content Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
- 
+    
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-
+    
     <script>
       window.CMS_MANUAL_INIT = true;
     </script>
 
-
-    <script src="https://unpkg.com/netlify-cms-app@2.15.83/dist/netlify-cms.js"></script>
+    
+    <script src="/vendor/netlify-cms/netlify-cms.js"></script>
   </head>
   <body>
     <script>
-
+      
       window.addEventListener("load", function () {
         CMS.init({ config: "/admin/config.yml" });
 
