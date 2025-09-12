@@ -4,21 +4,35 @@
     <meta charset="utf-8" />
     <title>Content Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+
+ 
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-   <script src="https://unpkg.com/netlify-cms-app/dist/netlify-cms.js"></script>
+
+
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
+
+    <script src="https://unpkg.com/netlify-cms-app@2.15.83/dist/netlify-cms.js"></script>
   </head>
   <body>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.reload();
-            });
-          }
-        });
-      }
+
+      window.addEventListener("load", function () {
+        CMS.init({ config: "/admin/config.yml" });
+
+        
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", (user) => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.reload();
+              });
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>
