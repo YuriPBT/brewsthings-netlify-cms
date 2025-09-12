@@ -1,11 +1,11 @@
-// /pages/admin/[[...index]].tsx
-import dynamic from "next/dynamic";
+// pages/admin/index.tsx
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-// Importa il modulo admin solo lato client
-const TinaAdmin = dynamic(() => import("../../tina/admin"), {
-  ssr: false,
-});
-
-export default function AdminPage() {
-  return <TinaAdmin />;
+export default function AdminRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/admin/");
+  }, [router]);
+  return null;
 }
